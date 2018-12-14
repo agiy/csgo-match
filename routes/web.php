@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/{any}', function () {
+    return view('welcome');
+});
+
+Route::prefix('/api')->group(function () {
+    Route::prefix('/gotv-demos')->group(function () {
+        Route::get('/', 'GOTVDemoController@index');
+        Route::get('/download', 'GOTVDemoController@download');
+    });
+});

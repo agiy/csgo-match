@@ -54054,7 +54054,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -54454,10 +54454,86 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: "App"
+    name: "App",
+    created: function created() {
+        this.fetchGOTVDemos();
+    },
+
+    data: function data() {
+        return {
+            headers: [{
+                text: 'ファイル名',
+                align: 'center',
+                value: 'name'
+            }, { text: '日時', align: 'center', value: 'datetime' }],
+            pagination: {
+                sortBy: 'datetime'
+            },
+            search: '',
+            demoFiles: []
+        };
+    },
+    methods: {
+        fetchGOTVDemos: function fetchGOTVDemos() {
+            var _this = this;
+
+            console.log("fetchGOTVDemos");
+            axios.get('/api/gotv-demos').then(function (response) {
+                _this.demoFiles = response.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        download: function download(fileName) {
+            console.log("download:");
+            axios.get('/api/gotv-demos/download', {
+                params: {
+                    filename: fileName
+                }
+            }).then(function (response) {
+                var url = window.URL.createObjectURL(new Blob([response.data]));
+                var link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', fileName);
+                document.body.appendChild(link);
+                link.click();
+            }).catch(function (error) {});
+        }
+    }
 });
 
 /***/ }),
@@ -54474,27 +54550,125 @@ var render = function() {
       _c(
         "v-container",
         [
-          [
-            _c(
-              "div",
-              [
-                _c("v-btn", { attrs: { color: "success" } }, [
-                  _vm._v("Success")
-                ]),
-                _vm._v(" "),
-                _c("v-btn", { attrs: { color: "error" } }, [_vm._v("Error")]),
-                _vm._v(" "),
-                _c("v-btn", { attrs: { color: "warning" } }, [
-                  _vm._v("Warning")
-                ]),
-                _vm._v(" "),
-                _c("v-btn", { attrs: { color: "info" } }, [_vm._v("Info")])
-              ],
-              1
-            )
-          ]
+          _c(
+            "v-card",
+            [
+              _c("v-card-title", [
+                _c("div", { staticClass: "d-fx jc-fe w100p" }, [
+                  _c(
+                    "div",
+                    { staticStyle: { width: "400px" } },
+                    [
+                      _c("v-text-field", {
+                        attrs: {
+                          "append-icon": "search",
+                          label: "検索",
+                          color: "accent",
+                          "single-line": "",
+                          "hide-details": "",
+                          outline: ""
+                        },
+                        model: {
+                          value: _vm.search,
+                          callback: function($$v) {
+                            _vm.search = $$v
+                          },
+                          expression: "search"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-data-table",
+                {
+                  staticClass: "elevation-1",
+                  attrs: {
+                    headers: _vm.headers,
+                    items: _vm.demoFiles,
+                    pagination: _vm.pagination
+                  },
+                  on: {
+                    "update:pagination": function($event) {
+                      _vm.pagination = $event
+                    }
+                  },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "items",
+                      fn: function(props) {
+                        return [
+                          _c("td", [_vm._v(_vm._s(props.item.name))]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-xs-center" }, [
+                            _vm._v(_vm._s(props.item.datetime))
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            { staticClass: "justify-center layout px-0" },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  staticClass: "mx-0",
+                                  attrs: { icon: "" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.download(props.item.name)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("v-icon", { attrs: { color: "teal" } }, [
+                                    _vm._v("cloud_download")
+                                  ])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ]
+                      }
+                    }
+                  ])
+                },
+                [
+                  _c(
+                    "template",
+                    { slot: "no-data" },
+                    [
+                      _c(
+                        "v-alert",
+                        {
+                          attrs: {
+                            value: true,
+                            outline: "",
+                            color: "grey",
+                            icon: "info"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    demoはありません\n                "
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                2
+              )
+            ],
+            1
+          )
         ],
-        2
+        1
       )
     ],
     1

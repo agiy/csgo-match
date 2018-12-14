@@ -41,7 +41,6 @@ class DeleteGOTVFile extends Command
         $now = Carbon::now();
         $deleteLine = $now->subDays(7);
 
-        $this->info(env('GOTV_DIRECTORY'));
         $files = \Storage::files(env('GOTV_DIRECTORY'));
         $deleteFiles = [];
 
@@ -59,7 +58,6 @@ class DeleteGOTVFile extends Command
                 $deleteFiles[] = $file;
             }
         }
-
 
         \Storage::delete($deleteFiles);
     }
