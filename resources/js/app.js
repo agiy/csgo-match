@@ -1,3 +1,14 @@
+import Vue from 'vue';
+import Vuetify from 'vuetify';
+import '../../node_modules/vuetify/src/stylus/main.styl';
+
+Vue.use(Vuetify, {
+    theme: {
+        primary: '#012E5A',
+        secondary: '#b71c1c',
+        accent: '#8c9eff',
+    },
+});
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -20,7 +31,7 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('app', require('./components/App'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
