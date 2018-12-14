@@ -23,6 +23,7 @@
                     :headers="headers"
                     :items="demoFiles"
                     :pagination.sync="pagination"
+                    :rows-per-page-items="rowsPerPageItems"
                     class="elevation-1"
             >
                 <template slot="items" slot-scope="props">
@@ -67,6 +68,7 @@
             pagination: {
                 sortBy: 'datetime'
             },
+            rowsPerPageItems: [10, 50, 100, {"text": "すべて", "value": -1}],
             search: ``,
             demoFiles: []
         }),

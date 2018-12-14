@@ -14,6 +14,11 @@ class GOTVDemoController extends Controller
         $demoFiles = [];
 
         foreach ($files as $file) {
+            $ext = substr($file, strrpos($file, '.') + 1);
+            if ($ext !== 'dem') {
+                continue;
+            }
+            
             $arr = [];
             $arr['name'] = basename($file);
 
