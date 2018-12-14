@@ -18,7 +18,7 @@ class GOTVDemoController extends Controller
             if ($ext !== 'dem') {
                 continue;
             }
-            
+
             $arr = [];
             $arr['name'] = basename($file);
 

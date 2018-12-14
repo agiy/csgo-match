@@ -66,7 +66,8 @@
                 { text: '日時',  align: 'center', value: 'datetime'},
             ],
             pagination: {
-                sortBy: 'datetime'
+                sortBy: 'datetime',
+                descending: true
             },
             rowsPerPageItems: [10, 50, 100, {"text": "すべて", "value": -1}],
             search: ``,
