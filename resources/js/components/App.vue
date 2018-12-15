@@ -19,28 +19,28 @@
                     </div>
                 </v-card-title>
 
-            <v-data-table
-                    :headers="headers"
-                    :items="demoFiles"
-                    :pagination.sync="pagination"
-                    :rows-per-page-items="rowsPerPageItems"
-                    class="elevation-1"
-            >
-                <template slot="items" slot-scope="props">
-                    <td>{{ props.item.name }}</td>
-                    <td class="text-xs-center">{{ props.item.datetime }}</td>
-                    <td class="justify-center layout px-0">
-                        <v-btn icon class="mx-0" @click="download(props.item.name)">
-                            <v-icon color="teal">cloud_download</v-icon>
-                        </v-btn>
-                    </td>
-                </template>
-                <template slot="no-data">
-                    <v-alert :value="true" outline color="grey" icon="info">
-                        demoはありません
-                    </v-alert>
-                </template>
-            </v-data-table>
+                <v-data-table
+                        :headers="headers"
+                        :items="demoFiles"
+                        :pagination.sync="pagination"
+                        :rows-per-page-items="rowsPerPageItems"
+                        class="elevation-1"
+                >
+                    <template slot="items" slot-scope="props">
+                        <td>{{ props.item.name }}</td>
+                        <td class="text-xs-center">{{ props.item.datetime }}</td>
+                        <td class="justify-center layout px-0">
+                            <v-btn icon class="mx-0" @click="download(props.item.name)">
+                                <v-icon color="teal">cloud_download</v-icon>
+                            </v-btn>
+                        </td>
+                    </template>
+                    <template slot="no-data">
+                        <v-alert :value="true" outline color="grey" icon="info">
+                            demoはありません
+                        </v-alert>
+                    </template>
+                </v-data-table>
 
             </v-card>
 
@@ -63,7 +63,7 @@
                     align: 'center',
                     value: 'name'
                 },
-                { text: '日時',  align: 'center', value: 'datetime'},
+                {text: '日時', align: 'center', value: 'datetime'}
             ],
             pagination: {
                 sortBy: 'datetime',
@@ -82,16 +82,19 @@
                     })
                     .catch(error => {
                         console.log(error);
-                    })
+                    });
             },
-            download(fileName){
-                console.log("download:");
+            download(fileName) {
+                console.log("download");
+
                 axios.get('/api/gotv-demos/download', {
+                    responseType: 'arraybuffer',
                     params: {
                         filename: fileName
                     }
                 })
                     .then(response => {
+                        console.log(response.data);
                         const url = window.URL.createObjectURL(new Blob([response.data]));
                         const link = document.createElement('a');
                         link.href = url;
@@ -103,7 +106,7 @@
                     })
             }
         }
-    }
+    };
 </script>
 
 <style scoped>

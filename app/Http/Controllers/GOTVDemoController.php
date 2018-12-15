@@ -46,9 +46,6 @@ class GOTVDemoController extends Controller
             abort(404);
         }
 
-        $headers = [
-            'Content-Type' => 'application/octet-stream',
-        ];
-        return response()->download(env('GOTV_DIRECTORY').'/'.$request->filename, 200, $headers);
+        return response()->download(env('GOTV_DIRECTORY').'/'.$request->filename);
     }
 }
