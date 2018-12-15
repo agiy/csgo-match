@@ -1,50 +1,65 @@
 <template>
     <v-app>
 
-        <v-container>
-            <v-card>
-                <v-card-title>
-                    <div class="d-fx jc-fe w100p">
-                        <div style="width: 400px;">
-                            <v-text-field
-                                    v-model="search"
-                                    append-icon="search"
-                                    label="検索"
-                                    color="accent"
-                                    single-line
-                                    hide-details
-                                    outline
-                            ></v-text-field>
+        <v-toolbar
+                color="blue"
+                app
+                :clipped-left="$vuetify.breakpoint.lgAndUp"
+                fixed
+                dark
+        >
+            <v-toolbar-title>
+                ToriaeZ! Gaming Server demo置き場
+            </v-toolbar-title>
+            <v-spacer/>
+        </v-toolbar>
+
+        <v-content>
+            <v-container>
+                <v-card>
+                    <v-card-title>
+                        <div class="d-fx jc-fe w100p">
+                            <div style="width: 400px;">
+                                <v-text-field
+                                        v-model="search"
+                                        append-icon="search"
+                                        label="検索"
+                                        color="accent"
+                                        single-line
+                                        hide-details
+                                        outline
+                                ></v-text-field>
+                            </div>
                         </div>
-                    </div>
-                </v-card-title>
+                    </v-card-title>
 
-                <v-data-table
-                        :headers="headers"
-                        :items="demoFiles"
-                        :pagination.sync="pagination"
-                        :rows-per-page-items="rowsPerPageItems"
-                        class="elevation-1"
-                >
-                    <template slot="items" slot-scope="props">
-                        <td>{{ props.item.name }}</td>
-                        <td class="text-xs-center">{{ props.item.datetime }}</td>
-                        <td class="justify-center layout px-0">
-                            <v-btn icon class="mx-0" @click="download(props.item.name)">
-                                <v-icon color="teal">cloud_download</v-icon>
-                            </v-btn>
-                        </td>
-                    </template>
-                    <template slot="no-data">
-                        <v-alert :value="true" outline color="grey" icon="info">
-                            demoはありません
-                        </v-alert>
-                    </template>
-                </v-data-table>
+                    <v-data-table
+                            :headers="headers"
+                            :items="demoFiles"
+                            :pagination.sync="pagination"
+                            :rows-per-page-items="rowsPerPageItems"
+                            class="elevation-1"
+                    >
+                        <template slot="items" slot-scope="props">
+                            <td>{{ props.item.name }}</td>
+                            <td class="text-xs-center">{{ props.item.datetime }}</td>
+                            <td class="justify-center layout px-0">
+                                <v-btn icon class="mx-0" @click="download(props.item.name)">
+                                    <v-icon color="teal">cloud_download</v-icon>
+                                </v-btn>
+                            </td>
+                        </template>
+                        <template slot="no-data">
+                            <v-alert :value="true" outline color="grey" icon="info">
+                                demoはありません
+                            </v-alert>
+                        </template>
+                    </v-data-table>
 
-            </v-card>
+                </v-card>
 
-        </v-container>
+            </v-container>
+        </v-content>
     </v-app>
 
 </template>
@@ -103,7 +118,7 @@
                         link.click();
                     })
                     .catch(error => {
-                    })
+                    });
             }
         }
     };
